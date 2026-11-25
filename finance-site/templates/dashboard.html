@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · Ledgerline{% endblock %}
+{% block body %}
+<header class="top">
+  <span class="brand">Ledgerline</span>
+  <span class="who">{{ email }} · <a href="{{ url_for('logout') }}">Log out</a></span>
+</header>
+<main class="dash">
+  <aside>
+    <form id="add" class="add">
+      <input id="coin" placeholder="Coin ID, e.g. cardano" required aria-label="Coin ID">
+      <input id="target" type="number" step="any" min="0" placeholder="Alert at (USD)" aria-label="Alert price in USD">
+      <button class="btn small" type="submit">Add coin</button>
+      <p id="msg" class="error" role="alert"></p>
+    </form>
+    <ul id="list" class="list"></ul>
+  </aside>
+  <section class="detail">
+    <div class="hero">
+      <p id="h-name" class="h-name">Select a coin</p>
+      <p id="h-price" class="h-price">—</p>
+      <p id="h-change" class="h-change"></p>
+    </div>
+    <div class="chart"><canvas id="chart"></canvas></div>
+    <h3>Triggered alerts</h3>
+    <ul id="alerts" class="alerts"></ul>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+{% endblock %}

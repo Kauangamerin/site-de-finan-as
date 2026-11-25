@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Create account' if mode == 'register' else 'Log in' }} · Ledgerline{% endblock %}
+{% block body %}
+<main class="auth">
+  <section class="auth-hero">
+    <p class="brand">Ledgerline</p>
+    <h1>Know where your money moves.</h1>
+    <p>Live prices, price alerts, and history, refreshed automatically every minute.</p>
+  </section>
+  <section class="auth-form">
+    <form method="post" novalidate>
+      <h2>{{ 'Create your account' if mode == 'register' else 'Log in' }}</h2>
+      {% for m in get_flashed_messages() %}<p class="error" role="alert">{{ m }}</p>{% endfor %}
+      <label>Email <input type="email" name="email" autocomplete="email" required autofocus></label>
+      <label>Password
+        <input type="password" name="password" required minlength="8"
+               autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}">
+      </label>
+      <button class="btn" type="submit">{{ 'Create account' if mode == 'register' else 'Log in' }}</button>
+      <p class="switch">
+        {% if mode == 'register' %}Already registered? <a href="{{ url_for('login') }}">Log in</a>
+        {% else %}New here? <a href="{{ url_for('register') }}">Create an account</a>{% endif %}
+      </p>
+    </form>
+  </section>
+</main>
+{% endblock %}
